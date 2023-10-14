@@ -286,11 +286,30 @@ class MarkdownTranslator(SphinxTranslator):  # pylint: disable=too-many-public-m
 
     def visit_image(self, node):
         """Image directive."""
-        uri = node["uri"]
-        alt = node.attributes.get("alt", "image")
-        # We don't need to add EOL before/after the image.
-        # It will be handled by the visit/depart handlers of the paragraph.
-        self.add(f"![{alt}]({uri})")
+        uri = node['uri']
+        alt = node.attributes.get('alt', 'image')
+        width = node.attributes.get('width', 'auto')
+        self.add(
+            f'<a class="reference internal image-reference" href="{uri}">'
+            f'<img alt="{alt}" src="{uri}" style="width: {width}"/>'
+            f'</a>'
+        )
+
+    def visit_figure(self, node: nodes.figure):
+        """Figure directive."""
+        print(node.children)
+
+        align = node.attributes.get('align', 'left')
+
+        self._push_context(WrappedContext(
+            f'<div align="{align}">',
+            '</div>',
+            params=SubContextParams(1)
+            )
+        )
+
+    def depart_figure(self, _node):
+        self._pop_context()
 
     # noinspection PyPep8Naming
     def visit_Text(self, node):  # pylint: disable=invalid-name
