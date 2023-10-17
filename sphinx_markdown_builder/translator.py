@@ -272,12 +272,12 @@ class MarkdownTranslator(SphinxTranslator):  # pylint: disable=too-many-public-m
     @pushing_context
     def visit_warning(self, _node):
         """Sphinx warning directive."""
-        self._push_box("WARNING")
+        self._push_inline_box("Warning")
 
     @pushing_context
     def visit_note(self, _node):
         """Sphinx note directive."""
-        self._push_inline_box("note")
+        self._push_inline_box("Note")
 
     @pushing_context
     def visit_seealso(self, _node):
