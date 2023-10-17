@@ -13,6 +13,8 @@ def setup(app):
     app.add_config_value('markdown_anchor_signatures', False, False)
     app.add_config_value('markdown_docinfo', False, False)
 
+    app.add_config_value('isaac_ros_config', {}, 'env')
+
     return {
         'parallel_read_safe': True,
         'parallel_write_safe': True,

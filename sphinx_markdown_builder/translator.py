@@ -163,8 +163,12 @@ class MarkdownTranslator(SphinxTranslator):  # pylint: disable=too-many-public-m
         self._push_context(SubContext(SubContextParams(1, 2)))
 
     def _push_inline_box(self, title: str):
-        self.add(f"> **{title}**: ", prefix_eol=2)
-        self._push_context(SubContext(SubContextParams(0, 2)))
+
+        if self.builder.release_mode:
+            self.add("> [!NOTE]")
+        else:
+            self.add(f"> **{title}**: ", prefix_eol=2)
+        self._push_context(IndentContext("> "))
 
     @property
     def status(self) -> ContextStatus:
