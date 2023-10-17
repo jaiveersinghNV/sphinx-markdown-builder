@@ -291,7 +291,7 @@ class MarkdownTranslator(SphinxTranslator):  # pylint: disable=too-many-public-m
         width = node.attributes.get('width', 'auto')
         self.add(
             f'<a class="reference internal image-reference" href="{uri}">'
-            f'<img alt="{alt}" src="{uri}" style="width: {width}"/>'
+            f'<img alt="{alt}" src="{uri}" width="{width}"/>'
             f'</a>'
         )
 
