@@ -50,6 +50,8 @@ class MarkdownBuilder(Builder):
         self.sec_numbers = None
         self.current_doc_name = None
 
+        self.release_mode = app.config.isaac_ros_config['release_mode']
+
     def init(self):
         self.sec_numbers = {}
 
