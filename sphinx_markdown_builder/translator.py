@@ -162,6 +162,10 @@ class MarkdownTranslator(SphinxTranslator):  # pylint: disable=too-many-public-m
         self.add(f"#### {title}", prefix_eol=2)
         self._push_context(SubContext(SubContextParams(1, 2)))
 
+    def _push_inline_box(self, title: str):
+        self.add(f"> **{title}**: ", prefix_eol=0)
+        self._push_context(SubContext(SubContextParams(1, 2)))
+
     @property
     def status(self) -> ContextStatus:
         return self._status_queue[-1]
@@ -273,7 +277,7 @@ class MarkdownTranslator(SphinxTranslator):  # pylint: disable=too-many-public-m
     @pushing_context
     def visit_note(self, _node):
         """Sphinx note directive."""
-        self._push_box("NOTE")
+        self._push_inline_box("note")
 
     @pushing_context
     def visit_seealso(self, _node):
